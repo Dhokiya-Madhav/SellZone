@@ -2,6 +2,8 @@ import React from "react";
 import "./styles/nav.css";
 import logo from "../images/salesman.png";
 import btnIcon from "../images/profile.png";
+import loginIcon from "../images/login.png";
+import { Link } from 'react-router-dom';
 export default function Navbar() {
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-dark">
@@ -24,13 +26,20 @@ export default function Navbar() {
                         </li>
                     </ul>
                     <form className="d-flex">
+                        <Link to="/login">
+                        <button className="btn me-3 btn-outline-danger">
+                            Login
+                            <span>
+                                <img src={loginIcon} className="ms-2" height="30" width="30" />
+                            </span>
+                        </button>
+                        </Link>
                         <button className="btn btn-outline-danger">
                             My Profile
                             <span>
                                 <img src={btnIcon} className="ms-2" height="30" width="30" />
                             </span>
                         </button>
-
                     </form>
                 </div>
             </div>
