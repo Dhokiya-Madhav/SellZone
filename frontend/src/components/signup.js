@@ -44,11 +44,7 @@ export default function SignUp() {
                     console.log(data);
                     if (data.status === "ok") {
                         alert("Sign Up Successful");
-                        sessionStorage.setItem("userName",data.username);
-                        sessionStorage.setItem("userEmail",data.email);
-                        sessionStorage.setItem("userPhone",data.mobileno);
-
-                        console.log(sessionStorage.getItem("userName"));
+                        window.location="http://localhost:3000/login";
                     } else if(data.error === "User Exists"){
                         alert("User already exists");
                     }
