@@ -1,28 +1,61 @@
-const { MongoClient, ServerApiVersion } = require('mongodb');
-
 const express = require('express');
+const mongoose = require("mongoose");
 const app = express();
 const port = 5000;
+const cors = require("cors");
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json());
+app.use(cors());
 
-const uri = "mongodb+srv://madhav:Madhav777@cluster0.3tdc3nr.mongodb.net/?retryWrites=true&w=majority";
+const uri = "mongodb+srv://madhav:Madhav777@cluster0.3tdc3nr.mongodb.net/SellZone?retryWrites=true&w=majority";
 
-const client = new MongoClient(uri, {
-    serverApi: {
-        version: ServerApiVersion.v1,
-        strict: true,
-        deprecationErrors: true,
+
+const { user } = require("./models/user.js")
+
+mongoose.connect(
+
+    "mongodb+srv://madhav:Madhav777@cluster0.3tdc3nr.mongodb.net/SellZone",
+    {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
     }
-});
-async function run() {
-    try {
-        await client.connect();
-        await client.db("admin").command({ ping: 1 });
-        console.log("Pinged your deployment. You successfully connected to MongoDB!");
-    } finally {
-        await client.close();
-    }
+);
+
+var db = mongoose.connection;
+db.on("error", console.error.bind(console, "connection error:"));
+db.once("open", mongoConnected);
+
+function mongoConnected(){
+    console.log("Database connected");
+
+    app.post("/registerUser", async (req, res) => {
+        const { username, email, password, mobileno} = req.body;
+
+        try {
+            const oldUser = await user.findOne({ email });
+            const oldUser1 = await user.findOne({ mobileno });
+
+            if (oldUser && oldUser1) {
+                return res.json({ error: "User Exists" });
+            }else if(oldUser){
+                return res.json({ error: "User Exists" });
+            }
+            else if(oldUser1){
+                return res.json({ error: "User Exists" });
+            }
+            await user.create({
+                username,
+                email,
+                password,
+                mobileno,
+            });
+            res.send({ status: "ok" });
+        } catch (error) {
+            console.log(error);
+            res.send({ status: "error" });
+        }
+    });
 }
-run().catch(console.dir);
 
 app.listen(port, () => {
     console.log(`Now listening on port ${port}`);
