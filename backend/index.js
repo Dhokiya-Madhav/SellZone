@@ -36,12 +36,12 @@ function mongoConnected(){
             const oldUser1 = await user.findOne({ mobileno });
 
             if (oldUser && oldUser1) {
-                return res.json({ error: "User Exists" });
+                return res.send({ error: "User Exists" });
             }else if(oldUser){
-                return res.json({ error: "User Exists" });
+                return res.send({ error: "User Exists" });
             }
             else if(oldUser1){
-                return res.json({ error: "User Exists" });
+                return res.send({ error: "User Exists" });
             }
             await user.create({
                 username,
