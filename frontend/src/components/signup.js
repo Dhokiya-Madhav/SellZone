@@ -1,18 +1,58 @@
 import React from "react";
 import { useState } from "react";
 export default function SignUp() {
-    const [psw,setPsw] = useState("");
-    const [cpsw,csetPsw] = useState("");
-    const [phone,setPhone] = useState("");
-    const validate = () =>{
-        if(psw.length <= 5){
+    const [usrName, setUserName] = useState("");
+    const [u_email, setEmail] = useState("");
+    const [psw, setPsw] = useState("");
+    const [cpsw, csetPsw] = useState("");
+    const [phone, setPhone] = useState("");
+    const validate = (e) => {
+        e.preventDefault();
+        var check = 0;
+        if (psw.length <= 5) {
             alert("Length of password should be greater than 6");
+            check = 1;
         }
-        if(psw != cpsw){
+        if (psw != cpsw) {
             alert("Password not matched");
+            check = 1;
         }
-        if(phone.length != 10){
+        if (phone.length != 10) {
             alert("Enter valid phone number");
+            check = 1;
+        }
+
+        if (check == 0) 
+        {
+            fetch("http://localhost:5000/registerUser", {
+                method: "POST",
+                crossDomain: true,
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                    "Access-Control-Allow-Origin": "*",
+                },
+                body: JSON.stringify({
+                    username: usrName,
+                    email: u_email,
+                    password: psw,
+                    mobileno: phone,
+                }),
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    console.log(data);
+                    if (data.status === "ok") {
+                        alert("Sign Up Successful");
+                        sessionStorage.setItem("userName",data.username);
+                        sessionStorage.setItem("userEmail",data.email);
+                        sessionStorage.setItem("userPhone",data.mobileno);
+
+                        console.log(sessionStorage.getItem("userName"));
+                    } else if(data.error === "User Exists"){
+                        alert("User already exists");
+                    }
+                });
         }
     };
     return (
@@ -24,26 +64,26 @@ export default function SignUp() {
                             <div className="col-12 col-md-9 col-lg-7 col-xl-6">
                                 <div className="card">
                                     <div className="card-body p-5">
-                                        <form>
+                                        <form onSubmit={validate}>
                                             <div className="form-outline mb-4">
                                                 <label className="form-label" for="form3Example1cg">Username</label>
-                                                <input type="text" id="form3Example1cg" className="form-control" required/>
+                                                <input type="text" id="form3Example1cg" onChange={(e) => setUserName(e.target.value)} className="form-control" required />
                                             </div>
 
                                             <div className="form-outline mb-4">
                                                 <label className="form-label" for="form3Example3cg">Email Id</label>
-                                                <input type="email" id="form3Example3cg" className="form-control" required />
+                                                <input type="email" id="form3Example3cg" onChange={(e) => setEmail(e.target.value)} className="form-control" required />
                                             </div>
 
                                             <div className="form-outline mb-4">
                                                 <label className="form-label" for="form3Example4cg">Password</label>
-                                                <input type="password" id="form3Example4cg" onChange={(e) => setPsw(e.target.value)} className="form-control" required/>
+                                                <input type="password" id="form3Example4cg" onChange={(e) => setPsw(e.target.value)} className="form-control" required />
 
                                             </div>
 
                                             <div className="form-outline mb-4">
                                                 <label className="form-label" for="form3Example4cdg">Confirm password</label>
-                                                <input type="password" id="form3Example4cdg" onChange={(e) => csetPsw(e.target.value)} className="form-control" required/>
+                                                <input type="password" id="form3Example4cdg" onChange={(e) => csetPsw(e.target.value)} className="form-control" required />
                                             </div>
 
                                             <div className="form-outline mb-4">
@@ -52,8 +92,8 @@ export default function SignUp() {
                                             </div>
 
                                             <div className="d-flex justify-content-center">
-                                                <button type="submit"
-                                                    className="btn btn-danger btn-block text-white" onClick={validate}>Register</button>
+                                                <button type="Submit"
+                                                    className="btn btn-danger btn-block text-white">Register</button>
                                             </div>
                                         </form>
                                     </div>
