@@ -1,10 +1,47 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import "./styles/nav.css";
 import logo from "../images/salesman.png";
 import btnIcon from "../images/profile.png";
 import loginIcon from "../images/login.png";
-import { Link } from 'react-router-dom';
+import { Link, redirect } from 'react-router-dom';
 export default function Navbar() {
+    const userName = sessionStorage.getItem("userName");
+    const logoutUser = () => {
+        sessionStorage.clear();
+        redirect("http://localhost:3000/");
+    };
+    if (userName) {
+        var button = <button onClick={logoutUser} className="btn me-3 btn-outline-danger">
+            Logout
+        </button>;
+    } else {
+        var button = <Link to="/login">
+            <button className="btn me-3 btn-outline-danger">
+                Login
+                <span>
+                    <img src={loginIcon} className="ms-2" height="30" width="30" />
+                </span>
+            </button>
+        </Link>
+    }
+
+    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
+    const [mobilenumber, setmobilenumber] = useState(0);
+    useEffect(() => {
+        if (sessionStorage.getItem("userEmail") != null) {
+            let useremail = sessionStorage.getItem("userEmail");
+
+            fetch("http://localhost:5000/user/" + useremail).then((response) => response.json())
+                .then((data) => {
+                    console.log(data);
+                    setUsername(data.username);
+                    sessionStorage.setItem("userName", data.userName);
+                    setEmail(data.email);
+                    setmobilenumber(data.mobileno);
+                })
+        }
+    }, []);
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-dark">
             <div className="container-fluid">
@@ -26,16 +63,9 @@ export default function Navbar() {
                         </li>
                     </ul>
                     <form className="d-flex">
-                        <Link to="/login">
-                        <button className="btn me-3 btn-outline-danger">
-                            Login
-                            <span>
-                                <img src={loginIcon} className="ms-2" height="30" width="30" />
-                            </span>
-                        </button>
-                        </Link>
+                        {button}
                         <button className="btn btn-outline-danger">
-                            My Profile
+                            {username}
                             <span>
                                 <img src={btnIcon} className="ms-2" height="30" width="30" />
                             </span>
