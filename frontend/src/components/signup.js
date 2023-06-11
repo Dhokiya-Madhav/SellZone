@@ -3,9 +3,16 @@ import { useState } from "react";
 export default function SignUp() {
     const [psw,setPsw] = useState("");
     const [cpsw,csetPsw] = useState("");
-    const validatePassword = () =>{
+    const [phone,setPhone] = useState("");
+    const validate = () =>{
+        if(psw.length <= 5){
+            alert("Length of password should be greater than 6");
+        }
         if(psw != cpsw){
             alert("Password not matched");
+        }
+        if(phone.length != 10){
+            alert("Enter valid phone number");
         }
     };
     return (
@@ -37,12 +44,16 @@ export default function SignUp() {
                                             <div className="form-outline mb-4">
                                                 <label className="form-label" for="form3Example4cdg">Confirm password</label>
                                                 <input type="password" id="form3Example4cdg" onChange={(e) => csetPsw(e.target.value)} className="form-control" required/>
+                                            </div>
 
+                                            <div className="form-outline mb-4">
+                                                <label className="form-label" for="form3Example3cg">Phone No</label>
+                                                <input type="number" id="form3Example3cg" className="form-control" onChange={(e) => setPhone(e.target.value)} required />
                                             </div>
 
                                             <div className="d-flex justify-content-center">
                                                 <button type="submit"
-                                                    className="btn btn-danger btn-block text-white" onClick={validatePassword}>Register</button>
+                                                    className="btn btn-danger btn-block text-white" onClick={validate}>Register</button>
                                             </div>
                                         </form>
                                     </div>
