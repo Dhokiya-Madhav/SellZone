@@ -25,11 +25,11 @@ var db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", mongoConnected);
 
-function mongoConnected(){
+function mongoConnected() {
     console.log("Database connected");
 
     app.post("/registerUser", async (req, res) => {
-        const { username, email, password, mobileno} = req.body;
+        const { username, email, password, mobileno } = req.body;
 
         try {
             const oldUser = await user.findOne({ email });
@@ -37,10 +37,10 @@ function mongoConnected(){
 
             if (oldUser && oldUser1) {
                 return res.send({ error: "User Exists" });
-            }else if(oldUser){
+            } else if (oldUser) {
                 return res.send({ error: "User Exists" });
             }
-            else if(oldUser1){
+            else if (oldUser1) {
                 return res.send({ error: "User Exists" });
             }
             await user.create({
@@ -55,6 +55,43 @@ function mongoConnected(){
             res.send({ status: "error" });
         }
     });
+
+    app.post("/login-user", async (req, res) => {
+        try {
+            const { email, password } = req.body;
+
+            const userCheck = await user.findOne({ email, password });
+            if (!userCheck) {
+                return res.send({ error: "Invalid credentials" });
+            }
+            //res.send({ status: "ok" });
+            return res.json({
+                status: "ok",
+                data: {
+                    email: email,
+                },
+            });
+        }
+        catch (error) {
+            console.log(error);
+        }
+    });
+
+    app.get("/user/:email", (req, res) => {
+        user.findOne({ email: req.params.email }, (err, users) => {
+
+            if (err) {
+                return res.status(400).json({ status: "error", error: err });
+            }
+            if (users) {
+                return res.status(200).json(users);
+            }
+            else {
+                return res.json({ status: "error", error: "User not found" });
+            }
+        }).clone();
+    });
+
 }
 
 app.listen(port, () => {
