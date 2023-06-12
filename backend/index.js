@@ -92,6 +92,21 @@ function mongoConnected() {
         }).clone();
     });
 
+    app.put("/user-update/:email", async (req, res) => {
+        const { username, email, password, mobileno} = req.body;
+        
+        try {
+            const result = await user.updateOne(
+                { email: req.params.email },
+                { $set: { username: username, email: email, password: password, mobileno: mobileno} }
+            );
+            return res.json({ status: "User updated", data: result });
+        } catch (error) {
+            console.log(error);
+            res.json({ status: "error", error: error });
+        }
+    });
+
 }
 
 app.listen(port, () => {
