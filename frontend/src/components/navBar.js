@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import "./styles/nav.css";
 import logo from "../images/salesman.png";
 import btnIcon from "../images/profile.png";
@@ -64,12 +64,14 @@ export default function Navbar() {
                     </ul>
                     <form className="d-flex">
                         {button}
-                        <button className="btn btn-outline-danger">
-                            {username}
-                            <span>
-                                <img src={btnIcon} className="ms-2" height="30" width="30" />
-                            </span>
-                        </button>
+                        <Link to="/up">
+                            <button className="btn btn-outline-danger">
+                                {username}
+                                <span>
+                                    <img src={btnIcon} className="ms-2" height="30" width="30" />
+                                </span>
+                            </button>
+                        </Link>
                     </form>
                 </div>
             </div>
