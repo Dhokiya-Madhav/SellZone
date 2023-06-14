@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import profile from "../images/profile.png";
+import { Link } from "react-router-dom";
 export default function UserProfile() {
     const userName = sessionStorage.getItem("userName");
     const [username, setUsername] = useState("");
@@ -56,7 +57,8 @@ export default function UserProfile() {
             <div className="container">
                 <div className="row">
                     <div className="col-md-6 text-center">
-                        <img src={profile} className="img-fluid" />
+                        <img src={profile} className="img-fluid" /> <br></br>
+                        <Link to="/sell"><button className="btn mt-4 btn-danger">Sell Product</button></Link>
                     </div>
                     <div className="col-md-6">
                         <br></br>
