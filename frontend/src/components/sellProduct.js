@@ -12,7 +12,7 @@ export default function SellProduct() {
     return (
         <>
 
-            <form>
+            <form enctype="multipart/form-data">
                 <div className="container">
                     <div className="row">
 
