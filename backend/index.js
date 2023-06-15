@@ -1,18 +1,39 @@
 const express = require('express');
 const mongoose = require("mongoose");
-const app = express();
+var bodyParser = require('body-parser');
+var fs = require('fs');
+var app = express();
+var bodyParser = require('body-parser');
+var path = require('path');
+
+
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+
+var multer = require('multer');
+
 const port = 5000;
 const cors = require("cors");
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json());
 app.use(cors());
-
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 
 const uri = "mongodb+srv://madhav:Madhav777@cluster0.3tdc3nr.mongodb.net/SellZone?retryWrites=true&w=majority";
 
-
+var storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads')
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + '-' + Date.now())
+    }
+});
+var upload = multer({ storage: storage });
 
 const { user } = require("./models/user.js")
+const { product } = require("./models/productDetails.js");
 
 
 
@@ -112,6 +133,45 @@ function mongoConnected() {
             console.log(error);
             res.json({ status: "error", error: error });
         }
+    });
+
+    app.post('/post-product', upload.single('image'), (req, res, next) => {
+
+        var obj = {
+            userId: req.body,
+            product_title: req.body,
+            product_desc: req.body,
+            product_type: req.body,
+            product_price: req.body,
+            state: req.body,
+            city: req.body,
+            img1: {
+                data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
+                contentType: 'image/png'
+            },
+            img2: {
+                data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
+                contentType: 'image/png'
+            },
+            img3: {
+                data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
+                contentType: 'image/png'
+            },
+            img4: {
+                data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
+                contentType: 'image/png'
+            }
+        }
+        product.create(obj)
+            .then((err, item) => {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    // item.save();
+                    
+                }
+            });
     });
 
 
