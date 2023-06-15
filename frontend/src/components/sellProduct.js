@@ -72,31 +72,6 @@ export default function SellProduct() {
                             <b><div className="mt-2">City :</div></b>
                             <input type="text" className="form-control" required />
 
-                            <button type="button" className="mt-2 btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                Verify Account
-                            </button>
-
-
-                            <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                <div className="modal-dialog">
-                                    <div className="modal-content">
-                                        <div className="modal-header">
-                                            <h5 className="modal-title" id="staticBackdropLabel">Verification</h5>
-                                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div className="modal-body">
-                                            Phone Number :
-                                            <input type="number" className="form-control mb-2" value={mobilenumber} />
-                                            OTP :
-                                            <input type="number" className="form-control"/>
-                                        </div>
-                                        <div className="modal-footer">
-                                            <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Verify</button>
-                                            <button type="button" className="btn btn-warning">Send OTP</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
 
                         </div>
 

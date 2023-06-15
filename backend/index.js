@@ -7,10 +7,17 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json());
 app.use(cors());
 
+
 const uri = "mongodb+srv://madhav:Madhav777@cluster0.3tdc3nr.mongodb.net/SellZone?retryWrites=true&w=majority";
 
 
+
 const { user } = require("./models/user.js")
+
+
+
+// transporter.sendMail(mailOptions, function (error, info) {
+
 
 mongoose.connect(
 
@@ -93,12 +100,12 @@ function mongoConnected() {
     });
 
     app.put("/user-update/:email", async (req, res) => {
-        const { username, email, password, mobileno} = req.body;
-        
+        const { username, email, password, mobileno } = req.body;
+
         try {
             const result = await user.updateOne(
                 { email: req.params.email },
-                { $set: { username: username, email: email, password: password, mobileno: mobileno} }
+                { $set: { username: username, email: email, password: password, mobileno: mobileno } }
             );
             return res.json({ status: "User updated", data: result });
         } catch (error) {
@@ -106,6 +113,7 @@ function mongoConnected() {
             res.json({ status: "error", error: error });
         }
     });
+
 
 }
 
