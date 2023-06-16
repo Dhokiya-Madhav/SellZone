@@ -22,18 +22,10 @@ app.use(bodyParser.json())
 
 const uri = "mongodb+srv://madhav:Madhav777@cluster0.3tdc3nr.mongodb.net/SellZone?retryWrites=true&w=majority";
 
-var storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'uploads')
-    },
-    filename: (req, file, cb) => {
-        cb(null, file.fieldname + '-' + Date.now())
-    }
-});
-var upload = multer({ storage: storage });
 
 const { user } = require("./models/user.js")
 const { product } = require("./models/productDetails.js");
+const { log } = require('console');
 
 
 
@@ -135,46 +127,39 @@ function mongoConnected() {
         }
     });
 
-    app.post('/post-product', upload.single('image'), (req, res, next) => {
-
-        var obj = {
-            userId: req.body,
-            product_title: req.body,
-            product_desc: req.body,
-            product_type: req.body,
-            product_price: req.body,
-            state: req.body,
-            city: req.body,
-            img1: {
-                data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
-                contentType: 'image/png'
-            },
-            img2: {
-                data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
-                contentType: 'image/png'
-            },
-            img3: {
-                data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
-                contentType: 'image/png'
-            },
-            img4: {
-                data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
-                contentType: 'image/png'
-            }
-        }
-        product.create(obj)
-            .then((err, item) => {
-                if (err) {
-                    console.log(err);
-                }
-                else {
-                    // item.save();
-                    
-                }
+    app.post("/post-product", async (req, res) => {
+        try {
+            const { userId, product_title, product_desc, product_type, product_price, state, city, img } = req.body;
+            await product.create({
+                userId,
+                product_title,
+                product_desc,
+                product_type,
+                product_price,
+                state,
+                city,
+                img,
             });
+            res.send({ status: "ok" });
+        }
+        catch (error) {
+            console.log(error);
+        }
     });
 
+    app.get("/get-products", async (req, res) => {
 
+        await product.find({}, { _id: 1, __v: 0 }, (err, prod) => {
+            if (err) {
+                return res.status(400).json({ error: err });
+            }
+            if (prod && prod.length == 0) {
+                return res.status(400).json({ error: "No records found!" });
+            }
+            return res.status(200).json(prod);
+        }).clone();
+
+    })
 }
 
 app.listen(port, () => {
