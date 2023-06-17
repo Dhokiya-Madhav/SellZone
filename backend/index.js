@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var path = require('path');
 
 
+
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
@@ -112,6 +113,15 @@ function mongoConnected() {
         }).clone();
     });
 
+    app.get("/owner/:id", (req, res) => {
+        user.findOne({ _id: req.params.id }, (err, users) => {
+            if (err) {
+                return res.status(400).json({ status: "error", error: err });
+            }
+            return res.status(200).json(users[0]);
+        }).clone();
+    });
+
     app.put("/user-update/:email", async (req, res) => {
         const { username, email, password, mobileno } = req.body;
 
@@ -160,6 +170,21 @@ function mongoConnected() {
         }).clone();
 
     })
+
+    app.get("/product/:id", (req, res) => {
+        product.findOne({ _id: req.params.id }, (err, prod) => {
+
+            if (err) {
+                return res.status(400).json({ status: "error", error: err });
+            }
+            if (prod) {
+                return res.status(200).json(prod);
+            }
+            else {
+                return res.json({ status: "error", error: "User not found" });
+            }
+        }).clone();
+    });
 }
 
 app.listen(port, () => {
