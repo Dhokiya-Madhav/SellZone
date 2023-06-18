@@ -9,9 +9,7 @@ var path = require('path');
 
 
 app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
-
-var multer = require('multer');
+app.use(bodyParser.json({limit:'50mb'}));
 
 const port = 5000;
 const cors = require("cors");
@@ -114,7 +112,7 @@ function mongoConnected() {
     });
 
     app.get("/owner/:id", (req, res) => {
-        user.findOne({ _id: req.params.id }, (err, users) => {
+        user.find({ _id: req.params.id }, (err, users) => {
             if (err) {
                 return res.status(400).json({ status: "error", error: err });
             }
