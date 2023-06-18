@@ -37,6 +37,7 @@ export default function Navbar() {
                     console.log(data);
                     setUsername(data.username);
                     sessionStorage.setItem("userName", data.userName);
+                    sessionStorage.setItem("userId", data._id);
                     setEmail(data.email);
                     setmobilenumber(data.mobileno);
                 })
