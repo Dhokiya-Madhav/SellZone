@@ -7,24 +7,28 @@ export default function ProductDetails() {
     const location = useLocation();
     const [singleProduct, setSingleProduct] = useState([]);
     const [userData, setUserData] = useState([]);
+    var uid;
     useEffect(() => {
         fetch("http://localhost:5000/product/" + location.state.id).then((response) => response.json())
             .then((data) => {
                 setSingleProduct(data);
+                
             })
-        getUserData();
+            
+        
 
     }, []);
-
+    uid = singleProduct.userId;
     //console.log(uid);
-
-    const getUserData = () => {
-
-        fetch("http://localhost:5000/owner/" + sessionStorage.getItem("userId")).then((response) => response.json())
+    
+    const getUserData = (uid) => {
+        //console.log(singleProduct.userId);
+        fetch("http://localhost:5000/owner/" + uid).then((response) => response.json())
             .then((data) => {
                 setUserData(data);
             })
     }
+    getUserData(uid);
     return (
         <>
 
@@ -67,7 +71,7 @@ export default function ProductDetails() {
                         </div>
                         <hr></hr>
                         Description : <br></br>
-                        {singleProduct.product_desc}
+                        <div className="fs-4">{singleProduct.product_desc}</div>
                     </div>
 
                     <div className="col-2">

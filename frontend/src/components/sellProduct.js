@@ -136,7 +136,8 @@ export default function SellProduct() {
                         <b>Product Title :</b>
                         <input type="text" onChange={(e) => setTitle(e.target.value)} className="form-control mb-2" required />
                         <b>Product Description : </b><br></br>
-                        <b><i className="text-danger">Note : Enter valuable product description</i></b>
+                        <b><i className="text-danger">Note : Enter valuable product description</i></b> <br></br>
+                        <b><i className="text-danger">Enter features comma seperated.</i></b>
                         <textarea className="form-control" onChange={(e) => setDesc(e.target.value)}></textarea>
                         Include condition, features etc.
                         <br></br>
