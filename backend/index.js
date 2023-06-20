@@ -155,9 +155,9 @@ function mongoConnected() {
         }
     });
 
-    app.get("/get-products", async (req, res) => {
+    app.get("/get-products", (req, res) => {
 
-        await product.find({}, { _id: 1, __v: 0 }, (err, prod) => {
+         product.find({}, { _id: 1, __v: 0 }, (err, prod) => {
             if (err) {
                 return res.status(400).json({ error: err });
             }
