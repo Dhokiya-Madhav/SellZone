@@ -4,12 +4,10 @@ import { Link } from "react-router-dom";
 export default function Home() {
     const [productData, setProductData] = useState([]);
     useEffect(() => {
-        fetch("http://192.168.43.250:5000/get-products").then((response) => response.json())
+        fetch("http://localhost:5000/get-products").then((response) => response.json())
             .then((data) => {
-
                 setProductData(data);
                 console.log(productData);
-
             })
     }, []);
 
