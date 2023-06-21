@@ -179,7 +179,21 @@ function mongoConnected() {
                 return res.status(200).json(prod);
             }
             else {
-                return res.json({ status: "error", error: "User not found" });
+                return res.json({ status: "error", error: "Product not found" });
+            }
+        }).clone();
+    });
+
+    app.get("/product/user/:uid", (req, res) => {
+        product.find({ userId: req.params.uid }, (err, prod) => {
+            if (err) {
+                return res.status(400).json({ status: "error", error: err });
+            }
+            if (prod) {
+                return res.status(200).json(prod);
+            }
+            else {
+                return res.json({ status: "error", error: "Product not found" });
             }
         }).clone();
     });
