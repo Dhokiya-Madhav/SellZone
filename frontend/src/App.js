@@ -9,6 +9,7 @@ import Home from './components/home';
 import UserProfile from './components/userProfile';
 import SellProduct from './components/sellProduct';
 import ProductDetails from './components/productDetails';
+import SpecificProduct from './components/userSpecificProduct';
 function App() {
   return (
     <>
@@ -21,6 +22,7 @@ function App() {
             <Route element={<UserProfile/>} path='/up'></Route>
             <Route element={<SellProduct/>} path='/sell'></Route>
             <Route element={<ProductDetails/>} path='/productDetails'></Route>
+            <Route element={<SpecificProduct/>} path='/sp'></Route>
         </Routes>
       </BrowserRouter>
     </>
