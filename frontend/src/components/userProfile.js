@@ -76,6 +76,7 @@ export default function UserProfile() {
                             <input type="number" className="form-control" onChange={(e) => setmobilenumber(e.target.value)} value={mobilenumber} />
                             <br></br>
                             <button type="Submit" className="btn btn-outline-danger">Update Profile</button>
+                            <Link to="/sp"><button className="btn ms-2 btn-outline-danger">Posted products</button></Link>
                         </form>
                     </div>
                 </div>
