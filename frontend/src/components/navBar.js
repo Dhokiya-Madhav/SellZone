@@ -8,7 +8,7 @@ export default function Navbar() {
     const userName = sessionStorage.getItem("userName");
     const logoutUser = () => {
         sessionStorage.clear();
-        redirect("http://localhost:3000/");
+        window.location = "http://localhost:3000";
     };
     if (userName) {
         var button = <button onClick={logoutUser} className="btn me-3 btn-outline-danger">

@@ -15,8 +15,8 @@ export default function Home() {
         (element) => {
             return (
                 <div className="col">
-                    <div className="card p-3 border-1 border-danger">
-                        <img src={element.img} style={{ height: 250, width: 280 }} className="card-img-top text-center img-fluid" alt="..." />
+                    <div className="card">
+                        <img src={element.img} style={{ height: 250, width: 280 }} className="card-img-top p-3 img-fluid" alt="..." />
                         <div className="card-body">
                             <h5 className="card-title">{element.product_title}</h5>
                             <p className="card-text">#{element.product_type}</p>
