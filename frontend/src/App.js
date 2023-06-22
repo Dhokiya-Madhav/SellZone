@@ -10,6 +10,7 @@ import UserProfile from './components/userProfile';
 import SellProduct from './components/sellProduct';
 import ProductDetails from './components/productDetails';
 import SpecificProduct from './components/userSpecificProduct';
+import UpdateProduct from './components/updateProduct';
 function App() {
   return (
     <>
@@ -23,6 +24,7 @@ function App() {
             <Route element={<SellProduct/>} path='/sell'></Route>
             <Route element={<ProductDetails/>} path='/productDetails'></Route>
             <Route element={<SpecificProduct/>} path='/sp'></Route>
+            <Route element={<UpdateProduct/>} path='/productUpdate'></Route>
         </Routes>
       </BrowserRouter>
     </>
