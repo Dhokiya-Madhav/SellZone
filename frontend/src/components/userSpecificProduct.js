@@ -22,6 +22,7 @@ export default function UserSpecificProduct() {
                             <div className="card-body">
                                 <h5 className="card-title">{element.product_title}</h5>
                                 <p className="card-text">#{element.product_type}</p>
+                                <p><Link to="/productUpdate" state={{ id: element._id }}><button className="btn btn-danger">Update product details</button></Link></p>
                             </div>
                             <div className="card-footer">
                                 <small className="text-muted"><Link to="/productDetails" state={{ id: element._id }}><button className="btn btn-outline-danger">More details</button></Link></small>
