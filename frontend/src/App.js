@@ -11,6 +11,7 @@ import SellProduct from './components/sellProduct';
 import ProductDetails from './components/productDetails';
 import SpecificProduct from './components/userSpecificProduct';
 import UpdateProduct from './components/updateProduct';
+import Footer from './components/footer';
 function App() {
   return (
     <>
@@ -26,6 +27,8 @@ function App() {
             <Route element={<SpecificProduct/>} path='/sp'></Route>
             <Route element={<UpdateProduct/>} path='/productUpdate'></Route>
         </Routes>
+        <br></br>
+        <Footer/>
       </BrowserRouter>
     </>
   );
