@@ -9,7 +9,7 @@ var path = require('path');
 
 
 app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json({limit:'50mb'}));
+app.use(bodyParser.json({ limit: '50mb' }));
 
 const port = 5000;
 const cors = require("cors");
@@ -135,6 +135,28 @@ function mongoConnected() {
         }
     });
 
+    app.put("/product-update/:id", async (req, res) => {
+        const { userId,
+            product_title,
+            product_desc,
+            product_type,
+            product_price,
+            state,
+            city,
+            img } = req.body;
+
+        try {
+            const result = await product.updateOne(
+                { _id: req.params.id },
+                { $set: { userId: userId, product_title: product_title, product_desc: product_desc, product_type: product_type,product_price:product_price,state:state,city:city,img:img } }
+            );
+            return res.json({ status: "Product updated", data: result });
+        } catch (error) {
+            console.log(error);
+            res.json({ status: "error", error: error });
+        }
+    });
+
     app.post("/post-product", async (req, res) => {
         try {
             const { userId, product_title, product_desc, product_type, product_price, state, city, img } = req.body;
@@ -157,7 +179,7 @@ function mongoConnected() {
 
     app.get("/get-products", (req, res) => {
 
-         product.find({}, { _id: 1, __v: 0 }, (err, prod) => {
+        product.find({}, { _id: 1, __v: 0 }, (err, prod) => {
             if (err) {
                 return res.status(400).json({ error: err });
             }
