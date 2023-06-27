@@ -75,6 +75,11 @@ export default function Home() {
                 </div>
             )
         })
+    const [query,setQuery] = useState();
+    const check = ()=>{
+        console.log(query);
+    }
+    check();
     return (
         <>
             <br></br>
@@ -83,6 +88,9 @@ export default function Home() {
                 Filters
             </button>
 
+            <center><input type="text" placeholder="Search products..." style={{width:400}} className="form-control" onKeyUp={(e)=>{setQuery(e.target.value)}}/></center>
+            
+            <hr></hr>
             <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog modal-xl">
                     <div className="modal-content">
