@@ -120,6 +120,59 @@ function mongoConnected() {
         }).clone();
     });
 
+    app.post("/filter", (req, res) => {
+        const { type,state,price } = req.body;
+        console.log(type,state,price);
+        var min,max;
+        if(price == "1000-5000"){
+            min = 1000;
+            max = 5000;
+        }
+        else if(price == "5000-10000"){
+            min = 5000;
+            max = 10000;
+        }
+        else if(price == "10000-20000"){
+            min = 10000;
+            max = 20000;
+        }
+        else if(price == "10000-20000"){
+            min = 10000;
+            max = 20000;
+        }
+        else if(price == "20000-50000"){
+            min = 20000;
+            max = 50000;
+        }
+        else if(price == "50000+"){
+            min = 50000;
+            product.find({$and:[{product_type:type},{state:state},{product_price:{$gte:min}}]}, (err, prod) => {
+                if (err) {
+                    return res.status(400).json({ status: "error", error: err });
+                }
+                if (prod) {
+                    return res.status(200).json(prod);
+                    //console.log(prod);
+                }
+                else {
+                    return res.json({ status: "error", error: "Product not found" });
+                }
+            }).clone();
+        }
+        product.find({$and:[{product_type:type},{state:state},{product_price:{$gte:min,$lt:max}}]}, (err, prod) => {
+            if (err) {
+                return res.status(400).json({ status: "error", error: err });
+            }
+            if (prod) {
+                return res.status(200).json(prod);
+                //console.log(prod);
+            }
+            else {
+                return res.json({ status: "error", error: "Product not found" });
+            }
+        }).clone();
+    });
+
     app.put("/user-update/:email", async (req, res) => {
         const { username, email, password, mobileno } = req.body;
 

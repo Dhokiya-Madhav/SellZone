@@ -30,7 +30,7 @@ export default function Home() {
         const value = "1000-5000 Rs";
         return value;
     };
-    
+
     const [state, setState] = useState(getInitialStateStates);
     const [type, setType] = useState(getInitialState);
     const [siz, setSize] = useState(getInitialSize);
@@ -75,11 +75,27 @@ export default function Home() {
                 </div>
             )
         })
-    const [query,setQuery] = useState();
-    const check = ()=>{
-        console.log(query);
+    const filters = (e) => {
+        e.preventDefault();
+        fetch("http://localhost:5000/filter", {
+            method: "POST",
+            crossDomain: true,
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+                "Access-Control-Allow-Origin": "*",
+            },
+            body: JSON.stringify({
+                type: type,
+                state: state,
+                price: priceRange
+            }),
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data);
+            });
     }
-    check();
     return (
         <>
             <br></br>
@@ -88,8 +104,8 @@ export default function Home() {
                 Filters
             </button>
 
-            <center><input type="text" placeholder="Search products..." style={{width:400}} className="form-control" onKeyUp={(e)=>{setQuery(e.target.value)}}/></center>
-            
+            <center><input type="text" placeholder="Search products..." style={{ width: 400 }} className="form-control" /></center>
+
             <hr></hr>
             <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog modal-xl">
@@ -98,82 +114,85 @@ export default function Home() {
                             <h5 className="modal-title" id="exampleModalLabel">Apply filters</h5>
                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div className="modal-body">
-                            <div className="container-fluid">
-                                <div className="row">
-                                    <div className="col-md-2">
-                                        <select name="Product-Type" value={type} onChange={handleChangePtype} className="mb-2">
-                                            <option value="Electronics">Electronics</option>
-                                            <option value="Furniture">Furniture</option>
-                                            <option value="Sports">Sports</option>
-                                            <option value="Home Decor">Home Decor</option>
-                                            <option value="Vehicle">Vehicle</option>
-                                            <option value="Fashion">Fashion</option>
-                                            <option value="Musical Instruments">Musical Instruments</option>
-                                            <option value="Books">Books</option>
-                                            <option value="Other">Other</option>
-                                        </select>
-                                    </div>
+                        <form onSubmit={filters}>
+                            <div className="modal-body">
+                                <div className="container-fluid">
+                                    <div className="row">
+                                        <div className="col-md-2">
+                                            <select name="Product-Type" value={type} onChange={handleChangePtype} className="mb-2">
+                                                <option value="Electronics">Electronics</option>
+                                                <option value="Furniture">Furniture</option>
+                                                <option value="Sports">Sports</option>
+                                                <option value="Home Decor">Home Decor</option>
+                                                <option value="Vehicle">Vehicle</option>
+                                                <option value="Fashion">Fashion</option>
+                                                <option value="Musical Instruments">Musical Instruments</option>
+                                                <option value="Books">Books</option>
+                                                <option value="Other">Other</option>
+                                            </select>
+                                        </div>
 
-                                    <div className="col-md-2">
-                                        <select id="statesDropdown" value={state} onChange={handleChangeState} className="mb-2" style={{width:150}}>
-                                            <option value="" disabled selected>Select a state</option>
-                                            <option value="Andhra Pradesh">Andhra Pradesh</option>
-                                            <option value="Arunachal Pradesh">Arunachal Pradesh</option>
-                                            <option value="Assam">Assam</option>
-                                            <option value="Bihar">Bihar</option>
-                                            <option value="Chhattisgarh">Chhattisgarh</option>
-                                            <option value="Goa">Goa</option>
-                                            <option value="Gujarat">Gujarat</option>
-                                            <option value="Haryana">Haryana</option>
-                                            <option value="Himachal Pradesh">Himachal Pradesh</option>
-                                            <option value="Jharkhand">Jharkhand</option>
-                                            <option value="Karnataka">Karnataka</option>
-                                            <option value="Kerala">Kerala</option>
-                                            <option value="Madhya Pradesh">Madhya Pradesh</option>
-                                            <option value="Maharashtra">Maharashtra</option>
-                                            <option value="Manipur">Manipur</option>
-                                            <option value="Meghalaya">Meghalaya</option>
-                                            <option value="Mizoram">Mizoram</option>
-                                            <option value="Nagaland">Nagaland</option>
-                                            <option value="Odisha">Odisha</option>
-                                            <option value="Punjab">Punjab</option>
-                                            <option value="Rajasthan">Rajasthan</option>
-                                            <option value="Sikkim">Sikkim</option>
-                                            <option value="Tamil Nadu">Tamil Nadu</option>
-                                            <option value="Telangana">Telangana</option>
-                                            <option value="Tripura">Tripura</option>
-                                            <option value="Uttar Pradesh">Uttar Pradesh</option>
-                                            <option value="Uttarakhand">Uttarakhand</option>
-                                            <option value="West Bengal">West Bengal</option>
-                                            <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
-                                            <option value="Chandigarh">Chandigarh</option>
-                                            <option value="Dadra and Nagar Haveli">Dadra and Nagar Haveli</option>
-                                            <option value="Daman and Diu">Daman and Diu</option>
-                                            <option value="Delhi">Delhi</option>
-                                            <option value="Lakshadweep">Lakshadweep</option>
-                                            <option value="Puducherry">Puducherry</option>
-                                        </select>
-                                    </div>
-                                    <div className="col-md-2">
-                                        <select name="price-range" value={priceRange} onChange={handleChangePriceRange}>
-                                            <option value="1000-5000">1000-5000 Rs</option>
-                                            <option value="5000-10000">5000-10000 Rs</option>
-                                            <option value="10000-20000">10000-20000 Rs</option>
-                                            <option value="20000-50000">20000-50000 Rs</option>
-                                            <option value="50000+">50000+ Rs</option>
-                                        </select>
-                                    </div>
-                                    <div className="col-md-1">
-                                        {size}
+                                        <div className="col-md-2">
+                                            <select id="statesDropdown" value={state} onChange={handleChangeState} className="mb-2" style={{ width: 150 }}>
+                                                <option value="" disabled selected>Select a state</option>
+                                                <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                                <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                                                <option value="Assam">Assam</option>
+                                                <option value="Bihar">Bihar</option>
+                                                <option value="Chhattisgarh">Chhattisgarh</option>
+                                                <option value="Goa">Goa</option>
+                                                <option value="Gujarat">Gujarat</option>
+                                                <option value="Haryana">Haryana</option>
+                                                <option value="Himachal Pradesh">Himachal Pradesh</option>
+                                                <option value="Jharkhand">Jharkhand</option>
+                                                <option value="Karnataka">Karnataka</option>
+                                                <option value="Kerala">Kerala</option>
+                                                <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                                <option value="Maharashtra">Maharashtra</option>
+                                                <option value="Manipur">Manipur</option>
+                                                <option value="Meghalaya">Meghalaya</option>
+                                                <option value="Mizoram">Mizoram</option>
+                                                <option value="Nagaland">Nagaland</option>
+                                                <option value="Odisha">Odisha</option>
+                                                <option value="Punjab">Punjab</option>
+                                                <option value="Rajasthan">Rajasthan</option>
+                                                <option value="Sikkim">Sikkim</option>
+                                                <option value="Tamil Nadu">Tamil Nadu</option>
+                                                <option value="Telangana">Telangana</option>
+                                                <option value="Tripura">Tripura</option>
+                                                <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                                <option value="Uttarakhand">Uttarakhand</option>
+                                                <option value="West Bengal">West Bengal</option>
+                                                <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                                                <option value="Chandigarh">Chandigarh</option>
+                                                <option value="Dadra and Nagar Haveli">Dadra and Nagar Haveli</option>
+                                                <option value="Daman and Diu">Daman and Diu</option>
+                                                <option value="Delhi">Delhi</option>
+                                                <option value="Lakshadweep">Lakshadweep</option>
+                                                <option value="Puducherry">Puducherry</option>
+                                            </select>
+                                        </div>
+                                        <div className="col-md-2">
+                                            <select name="price-range" value={priceRange} onChange={handleChangePriceRange}>
+                                                <option value="1000-5000">1000-5000 Rs</option>
+                                                <option value="5000-10000">5000-10000 Rs</option>
+                                                <option value="10000-20000">10000-20000 Rs</option>
+                                                <option value="20000-50000">20000-50000 Rs</option>
+                                                <option value="50000+">50000+ Rs</option>
+                                            </select>
+                                        </div>
+                                        <div className="col-md-1">
+                                            {size}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-primary">Apply filters</button>
-                        </div>
+
+                            <div className="modal-footer">
+                                <button type="Submit" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="Submit" className="btn btn-primary">Apply filters</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
