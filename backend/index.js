@@ -121,32 +121,32 @@ function mongoConnected() {
     });
 
     app.post("/filter", (req, res) => {
-        const { type,state,price } = req.body;
-        console.log(type,state,price);
-        var min,max;
-        if(price == "1000-5000"){
+        const { type, state, price } = req.body;
+        console.log(type, state, price);
+        var min, max;
+        if (price == "1000-5000") {
             min = 1000;
             max = 5000;
         }
-        else if(price == "5000-10000"){
+        else if (price == "5000-10000") {
             min = 5000;
             max = 10000;
         }
-        else if(price == "10000-20000"){
+        else if (price == "10000-20000") {
             min = 10000;
             max = 20000;
         }
-        else if(price == "10000-20000"){
+        else if (price == "10000-20000") {
             min = 10000;
             max = 20000;
         }
-        else if(price == "20000-50000"){
+        else if (price == "20000-50000") {
             min = 20000;
             max = 50000;
         }
-        else if(price == "50000+"){
+        else if (price == "50000+") {
             min = 50000;
-            product.find({$and:[{product_type:type},{state:state},{product_price:{$gte:min}}]}, (err, prod) => {
+            product.find({ $and: [{ product_type: type }, { state: state }, { product_price: { $gte: min } }] }, (err, prod) => {
                 if (err) {
                     return res.status(400).json({ status: "error", error: err });
                 }
@@ -159,7 +159,7 @@ function mongoConnected() {
                 }
             }).clone();
         }
-        product.find({$and:[{product_type:type},{state:state},{product_price:{$gte:min,$lt:max}}]}, (err, prod) => {
+        product.find({ $and: [{ product_type: type }, { state: state }, { product_price: { $gte: min, $lt: max } }] }, (err, prod) => {
             if (err) {
                 return res.status(400).json({ status: "error", error: err });
             }
@@ -201,13 +201,30 @@ function mongoConnected() {
         try {
             const result = await product.updateOne(
                 { _id: req.params.id },
-                { $set: { userId: userId, product_title: product_title, product_desc: product_desc, product_type: product_type,product_price:product_price,state:state,city:city,img:img } }
+                { $set: { userId: userId, product_title: product_title, product_desc: product_desc, product_type: product_type, product_price: product_price, state: state, city: city, img: img } }
             );
             return res.json({ status: "Product updated", data: result });
         } catch (error) {
             console.log(error);
             res.json({ status: "error", error: error });
         }
+    });
+
+    app.delete('/delete/product/:id', (req, res) => {
+        const itemId = req.params.id;
+
+        product.findByIdAndRemove(itemId, (err, deletedItem) => {
+            if (err) {
+                console.log(err);
+                return res.status(500).json({ message: 'Error deleting item' });
+            }
+
+            if (!deletedItem) {
+                return res.status(404).json({ message: 'Item not found' });
+            }
+
+            res.json({ message: 'Item deleted successfully' });
+        });
     });
 
     app.post("/post-product", async (req, res) => {
