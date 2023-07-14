@@ -9,7 +9,4 @@ One of the key features of SellZone is its emphasis on local transactions. It ai
 # Key Features
 <b>Free Listings</b>: It allows users to post free classified ads, enabling individuals and businesses to list their products or services without any upfront charges. <br>
 <b>Local Focus</b>: It emphasizes local transactions, encouraging buyers and sellers to connect within the same geographical area. This focus enables users to meet in person, inspect items, and facilitate smooth transactions. <br>
-<b>Wide Range of Categories:</b> It covers a wide range of categories, including electronics, vehicles, real estate, jobs, services, fashion, home and garden, and more. This diversity allows users to find or sell almost anything they need.
-
-# Competitor
-If we talk about competitor of SellZone in the current market then OLX will be the major competitor of this platform. OLX is Dutch-domiciled marketplace located at Amsterdam(Capital city of netherland). <b>While SellZone is built in India</b>. 
+<b>Wide Range of Categories:</b> It covers a wide range of categories, including electronics, vehicles, real estate, jobs, services, fashion, home and garden, and more. This diversity allows users to find or sell almost anything they need. 
