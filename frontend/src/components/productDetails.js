@@ -12,17 +12,10 @@ export default function ProductDetails() {
         fetch("http://localhost:5000/product/" + location.state.id).then((response) => response.json())
             .then((data) => {
                 setSingleProduct(data);
-                
             })
-            
-        
-
     }, []);
     uid = singleProduct.userId;
-    //console.log(uid);
-    
     const getUserData = (uid) => {
-        //console.log(singleProduct.userId);
         fetch("http://localhost:5000/owner/" + uid).then((response) => response.json())
             .then((data) => {
                 setUserData(data);
@@ -31,9 +24,8 @@ export default function ProductDetails() {
     getUserData(uid);
     return (
         <>
-
             <br></br>
-            <div className="container-fluid">
+            <div className="container-fluid text-white">
                 <div className="row">
                     <div className="col-md-12 text-center">
                         <img src={singleProduct.img} className="img-fluid" />

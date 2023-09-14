@@ -62,8 +62,8 @@ export default function Home() {
         (element) => {
             return (
                 <div className="col">
-                    <div className="card">
-                        <img src={element.img} style={{ height: 250, width: 280 }} className="card-img-top p-3 img-fluid" alt="..." />
+                    <div className="card border border-1 border-success text-white" style={{backgroundColor:'transparent'}}>
+                        <img src={element.img} className="card-img-top p-3 img-fluid" alt="..." />
                         <div className="card-body">
                             <h5 className="card-title">{element.product_title}</h5>
                             <p className="card-text">#{element.product_type}</p>
@@ -75,27 +75,6 @@ export default function Home() {
                 </div>
             )
         })
-    const filters = (e) => {
-        e.preventDefault();
-        fetch("http://localhost:5000/filter", {
-            method: "POST",
-            crossDomain: true,
-            headers: {
-                "Content-Type": "application/json",
-                Accept: "application/json",
-                "Access-Control-Allow-Origin": "*",
-            },
-            body: JSON.stringify({
-                type: type,
-                state: state,
-                price: priceRange
-            }),
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                console.log(data);
-            });
-    }
     return (
         <>
             <br></br>

@@ -4,21 +4,14 @@ export default function Footer() {
     return (
         <>
             <div>
-
-                <footer className="bg-danger text-center text-lg-start text-white">
-                    
+                <footer className="text-center text-lg-start text-white">
                     <div className="container p-4">
-
                         <div className="row my-4">
-                            
                             <div className="col-lg-3 col-md-6 mb-4 mb-md-0">
-
                                 <div className="rounded-circle bg-white shadow-1-strong d-flex align-items-center justify-content-center mb-4 mx-auto" style={{width: 150,height: 150}}>
                                     <img src={img} height="70" alt="" loading="lazy" />
                                 </div>
-
                                 <p className="text-center">Sell-Zone</p>
-
                                 <ul className="list-unstyled d-flex flex-row justify-content-center">
                                     <li>
                                         <a className="text-white px-2" href="#!">
@@ -81,9 +74,6 @@ export default function Footer() {
                         </div>
                         
                     </div>
-                    
-
-                    
                     <div className="text-center p-3">
                         © 2023 Copyright:
                         <a className="text-white">Sell-Zone</a>
