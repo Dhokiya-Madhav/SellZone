@@ -17,7 +17,7 @@ export default function UserSpecificProduct() {
             (element) => {
                 return (
                     <div className="col">
-                        <div className="card">
+                        <div className="card text-white" style={{backgroundColor:'transparent'}}>
                             <img src={element.img} style={{ height: 250, width: 280 }} className="card-img-top p-3 img-fluid" alt="..." />
                             <div className="card-body">
                                 <h5 className="card-title">{element.product_title}</h5>
@@ -31,8 +31,6 @@ export default function UserSpecificProduct() {
                     </div>
                 )
             })
-        
-
     return (
         <>
             <br></br>

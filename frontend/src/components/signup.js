@@ -19,9 +19,11 @@ export default function SignUp() {
         const userName = e.target.value;
         setUserName(userName);
         if (userName.length < 4) {
+            document.getElementById('userName').style.color='red';
             setUserNameErrorMsg("Username should be greater than 4 character")
         }
         else {
+            document.getElementById('userName').style.color='green';
             setUserNameErrorMsg("");
         }
     }
@@ -30,9 +32,11 @@ export default function SignUp() {
         const emailId = e.target.value;
         setEmail(emailId);
         if (!emailRegex.test(emailId)) {
+            document.getElementById('userEmail').style.color='red';
             setEmailErrorMsg("Invalid email address")
         }
         else {
+            document.getElementById('userEmail').style.color='green';
             setEmailErrorMsg("");
         }
     }
@@ -41,11 +45,13 @@ export default function SignUp() {
         const userPassword = e.target.value;
         setPsw(userPassword)
         if (!passwordRegex.test(userPassword)) {
+            document.getElementById('userPassword').style.color='red';
             setPasswordErrorMsg(
                 "Invalid password. It should be at least 6 characters long and include alphabets, numbers, and special characters."
             );
         }
         else {
+            document.getElementById('userPassword').style.color='green';
             setPasswordErrorMsg("");
         }
     }
@@ -54,9 +60,11 @@ export default function SignUp() {
         const userPhoneNumber = e.target.value;
         setPhone(userPhoneNumber);
         if (userPhoneNumber.length != 10) {
+            document.getElementById('userNumber').style.color='red';
             setPhoneNumberErrorMsg("Invalid phone number")
         }
         else {
+            document.getElementById('userNumber').style.color='green';
             setPhoneNumberErrorMsg("");
         }
     }
@@ -65,8 +73,10 @@ export default function SignUp() {
         const cnfPassword = e.target.value;
         csetPsw(cnfPassword);
         if (psw != cnfPassword) {
+            document.getElementById('userCnfPassword').style.color='red';
             setCnfPasswordErrorMsg("Password does not match")
         } else {
+            document.getElementById('userCnfPassword').style.color='green';
             setCnfPasswordErrorMsg("");
         }
     }
@@ -104,16 +114,16 @@ export default function SignUp() {
     return (
         <>
             <section>
-                <div className="mask d-flex align-items-center h-100 gradient-custom-3">
+                <div  className="mask d-flex align-items-center h-100 gradient-custom-3">
                     <div className="container">
                         <div className="row d-flex justify-content-center align-items-center h-100">
                             <div className="col-12 col-md-9 col-lg-7 col-xl-6">
-                                <div className="card">
+                                <div className="card text-white" style={{backgroundColor:'transparent'}}>
                                     <div className="card-body p-5">
                                         <form>
                                             <div className="form-outline mb-4">
                                                 <label className="form-label" for="form3Example1cg">Username</label>
-                                                <input type="text" id="form3Example1cg" onChange={userNameValidate} className="form-control" required />
+                                                <input type="text" style={{backgroundColor:'transparent'}} id="userName" onChange={userNameValidate} className="form-control" required />
                                                 {usrNameErrorMsg && (
                                                     <div className="text-danger">{usrNameErrorMsg}</div>
                                                 )}
@@ -121,7 +131,7 @@ export default function SignUp() {
 
                                             <div className="form-outline mb-4">
                                                 <label className="form-label" for="form3Example3cg">Email Id</label>
-                                                <input type="email" id="form3Example3cg" onChange={emailValidate} className="form-control" required />
+                                                <input type="email" style={{backgroundColor:'transparent'}} id="userEmail" onChange={emailValidate} className="form-control" required />
                                                 {emailErrorMsg && (
                                                     <div className="text-danger">{emailErrorMsg}</div>
                                                 )}
@@ -129,7 +139,7 @@ export default function SignUp() {
 
                                             <div className="form-outline mb-4">
                                                 <label className="form-label" for="form3Example4cg">Password</label>
-                                                <input type="password" id="form3Example4cg" onChange={passwordValidate} className="form-control" required />
+                                                <input type="password" style={{backgroundColor:'transparent'}} id="userPassword" onChange={passwordValidate} className="form-control" required />
                                                 {passwordErrorMsg && (
                                                     <div className="text-danger">{passwordErrorMsg}</div>
                                                 )}
@@ -137,7 +147,7 @@ export default function SignUp() {
 
                                             <div className="form-outline mb-4">
                                                 <label className="form-label" for="form3Example4cdg">Confirm password</label>
-                                                <input type="password" id="form3Example4cdg" onChange={passwordMatching} className="form-control" required />
+                                                <input type="password" style={{backgroundColor:'transparent'}} id="userCnfPassword" onChange={passwordMatching} className="form-control" required />
                                                 {cnfPasswordErrorMsg && (
                                                     <div className="text-danger">{cnfPasswordErrorMsg}</div>
                                                 )}
@@ -145,7 +155,7 @@ export default function SignUp() {
 
                                             <div className="form-outline mb-4">
                                                 <label className="form-label" for="form3Example3cg">Phone No</label>
-                                                <input type="number" id="form3Example3cg" className="form-control" onChange={phoneNumberValidate} required />
+                                                <input type="number" style={{backgroundColor:'transparent'}} id="userNumber" className="form-control" onChange={phoneNumberValidate} required />
                                                 {phoneNumberErrorMsg && (
                                                     <div className="text-danger">{phoneNumberErrorMsg}</div>
                                                 )}

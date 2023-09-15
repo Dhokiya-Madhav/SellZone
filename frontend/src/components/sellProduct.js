@@ -80,14 +80,14 @@ export default function SellProduct() {
     }
     return (
         <>
-            <div className="container">
+            <div className="container text-white">
                 <div className="row">
 
                     <div className="col-md-6">
                         <b>Image :</b>
-                        <input type="file" accept="image/*" onChange={convertToBase64} className="form-control mb-2" required />
+                        <input type="file" accept="image/*" style={{backgroundColor:'transparent'}} onChange={convertToBase64} className="form-control mb-2 text-white" required />
                         <b>State :</b>
-                        <select id="statesDropdown" value={state} onChange={handleChangeState} className="form-control">
+                        <select id="statesDropdown" value={state} style={{backgroundColor:'transparent'}} onChange={handleChangeState} className="form-control">
                             <option value="" disabled selected>Select a state</option>
                             <option value="Andhra Pradesh">Andhra Pradesh</option>
                             <option value="Arunachal Pradesh">Arunachal Pradesh</option>
@@ -127,22 +127,22 @@ export default function SellProduct() {
                         </select>
 
                         <b><div className="mt-2">City :</div></b>
-                        <input type="text" onChange={(e) => setCity(e.target.value)} className="form-control" required />
+                        <input type="text" style={{backgroundColor:'transparent'}} onChange={(e) => setCity(e.target.value)} className="form-control text-white" required />
 
 
                     </div>
 
                     <div className="col-md-6">
                         <b>Product Title :</b>
-                        <input type="text" onChange={(e) => setTitle(e.target.value)} className="form-control mb-2" required />
+                        <input type="text" style={{backgroundColor:'transparent'}} onChange={(e) => setTitle(e.target.value)} className="form-control mb-2 text-white" required />
                         <b>Product Description : </b><br></br>
                         <b><i className="text-danger">Note : Enter valuable product description</i></b> <br></br>
                         <b><i className="text-danger">Enter features comma seperated.</i></b>
-                        <textarea className="form-control" onChange={(e) => setDesc(e.target.value)}></textarea>
+                        <textarea className="form-control text-white" style={{backgroundColor:'transparent'}} onChange={(e) => setDesc(e.target.value)}></textarea>
                         Include condition, features etc.
                         <br></br>
                         <b><div className="mt-2">Product Type :</div></b>
-                        <select name="Product-Type" value={type} onChange={handleChangePtype} className="mb-2 form-control">
+                        <select name="Product-Type" style={{backgroundColor:'transparent'}} value={type} onChange={handleChangePtype} className="mb-2 form-control">
                             <option value="Electronics">Electronics</option>
                             <option value="Furniture">Furniture</option>
                             <option value="Sports">Sports</option>
@@ -155,7 +155,7 @@ export default function SellProduct() {
                         </select>
 
                         <b>Product Price (Rs):</b>
-                        <input type="number" onChange={(e) => setPrice(e.target.value)} className="form-control" />
+                        <input type="number" style={{backgroundColor:'transparent'}} onChange={(e) => setPrice(e.target.value)} className="form-control text-white" />
 
                         <button className="btn btn-danger mt-2" onClick={postProduct}>Post</button>
                     </div>

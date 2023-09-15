@@ -71,10 +71,10 @@ export default function Login() {
             <center>
                 <form>
                     <div className="container">
-                        <div className="fs-3">Login</div>
+                        <div className="fs-3 text-white">Login</div>
                         <div className="row">
                             <div className="col-12">
-                                <input type="email" id='email' onChange={emailValidate} className="form-control w-50" placeholder="Enter email..." />
+                                <input type="email" style={{backgroundColor:'transparent'}} id='email' onChange={emailValidate} className="form-control w-50" placeholder="Enter email..." />
                                 {emailErrorMsg && (
                                     <div className="text-danger">{emailErrorMsg}</div>
                                 )}
@@ -83,7 +83,7 @@ export default function Login() {
                         <br></br>
                         <div className="row">
                             <div className="col-12">
-                                <input type="password" id='password' onChange={passwordValidate} className="form-control w-50" placeholder="Enter password..." />
+                                <input type="password" id='password' style={{backgroundColor:'transparent'}} onChange={passwordValidate} className="form-control w-50" placeholder="Enter password..." />
                                 {passwordErrorMsg && (
                                     <div className="text-danger">{passwordErrorMsg}</div>
                                 )}
@@ -97,8 +97,8 @@ export default function Login() {
                         </div>
                         <br></br>
                         <div className="row">
-                            <div className="col-12">
-                                Don't have an account? <Link to='/signup'>Signup</Link>
+                            <div className="col-12 text-white">
+                                Don't have an account? <Link to='/signup' className="text-white">Signup</Link>
                             </div>
                         </div>
                     </div>

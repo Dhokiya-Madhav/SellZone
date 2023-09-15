@@ -91,7 +91,7 @@ export default function UpdateProduct() {
     return (
         <>
             <form onSubmit={updateProduct}>
-                <div className="container">
+                <div className="container text-white">
                     <div className="row">
 
                         <div className="col-md-6">

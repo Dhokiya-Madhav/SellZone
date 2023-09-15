@@ -32,7 +32,7 @@ export default function ProductDetails() {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-md-10 fs-1">
+                    <div className="col-md-10 fs-3">
                         {singleProduct.product_title}
                         <div className="fs-6">#{singleProduct.product_type}</div>
                         <hr></hr>
@@ -40,7 +40,7 @@ export default function ProductDetails() {
                         Current Owner Details:
                         <div className="row fs-4">
                             <div className="col-md-2">
-                                <img src={profileIcon} className="me-2" height={30} />
+                                <img src={profileIcon}  className="me-2" height={30} />
                                 {userData.username}
                             </div>
 
@@ -48,7 +48,7 @@ export default function ProductDetails() {
                             </div>
 
                             <div className="col-md-3">
-                                <img src={phoneIcon} className="me-2" height={30} />
+                                <img src={phoneIcon} style={{backgroundColor:'transparent'}} className="me-2" height={30} />
                                 {userData.mobileno}
                             </div>
 
